@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    tetris:
+        build:
+            context: '.'
+            target: 'app'
+            args:
+                SSH_PRIVATE_KEY: '${SSH_PRIVATE_KEY:?}'
+                PUBLIC_URL: '${PUBLIC_URL:?}'
+                CLONE_REPOSITORY: '${CLONE_REPOSITORY:?}'
+        image: 'local-tetris:latest'
+        command: 'npm run srv-dist'
+        ports:
+            -
+                mode: 'host'
+                target: 4433
+                published: 44433
+                protocol: 'tcp'
+            -
+                mode: 'host'
+                target: 4433
+                published: 44433
+                protocol: 'udp'
